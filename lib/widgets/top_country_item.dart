@@ -8,7 +8,7 @@ class TopCountryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         width: 160.0,
         decoration: BoxDecoration(

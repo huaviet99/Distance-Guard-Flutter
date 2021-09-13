@@ -22,11 +22,68 @@ class _DashboardPageState extends State<DashboardPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
+            _buildSloganComponent(),
+            SizedBox(height: 20),
             _buildLatestUpdateComponent(),
             SizedBox(height: 20),
             _buildTopCountriesComponent(),
+            SizedBox(height: 20),
+            _buildSpreadTrendsComponent(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildSloganComponent() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Color(0xFFFF4B63),
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset('images/img_slogan_character.svg'),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(0, 8, 8, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Need Basic\nCOVID-19 Information?',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: SizedBox(
+                      height: 30.0,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          onPrimary: Color(0xFFFF4B63),
+                          primary: Colors.white,
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Click here',
+                          style: TextStyle(
+                            color: Color(0xFFFF4B63),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -97,32 +154,47 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Widget _buildTopCountriesComponent() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Top Countries',
-            style: TextStyle(
-              fontSize: 18.0,
-              color: MyAppColor.primaryBlue,
-              fontWeight: FontWeight.w600,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Top Countries',
+          style: TextStyle(
+            fontSize: 18.0,
+            color: MyAppColor.primaryBlue,
+            fontWeight: FontWeight.w600,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                TopCountryItem(),
-                TopCountryItem(),
-                TopCountryItem(),
-                TopCountryItem(),
-                TopCountryItem(),
-              ],
-            ),
+        ),
+        SizedBox(height: 10),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              TopCountryItem(),
+              TopCountryItem(),
+              TopCountryItem(),
+              TopCountryItem(),
+              TopCountryItem(),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSpreadTrendsComponent() {
+    return Column(
+      children: [
+        Text(
+          'Spread Trends',
+          style: TextStyle(
+            fontSize: 18.0,
+            color: MyAppColor.primaryBlue,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        SizedBox(height: 10),
+      ],
     );
   }
 }
