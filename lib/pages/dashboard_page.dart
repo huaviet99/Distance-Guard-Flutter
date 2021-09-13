@@ -1,5 +1,6 @@
 import 'package:distance_guard_flutter/constants/colors.dart';
 import 'package:distance_guard_flutter/widgets/latest_update_card.dart';
+import 'package:distance_guard_flutter/widgets/top_country_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,11 +15,16 @@ class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             _buildLatestUpdateComponent(),
+            SizedBox(height: 20),
+            _buildTopCountriesComponent(),
           ],
         ),
       ),
@@ -87,6 +93,36 @@ class _DashboardPageState extends State<DashboardPage> {
           ],
         ),
       ],
+    );
+  }
+
+  Widget _buildTopCountriesComponent() {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Top Countries',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: MyAppColor.primaryBlue,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                TopCountryItem(),
+                TopCountryItem(),
+                TopCountryItem(),
+                TopCountryItem(),
+                TopCountryItem(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

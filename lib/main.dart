@@ -8,7 +8,7 @@ class MyApp extends StatelessWidget {
   final TextStyle _appBarTextStyle = TextStyle(
     fontWeight: FontWeight.w600,
     color: MyAppColor.primaryBlue,
-    fontSize: 20.0,
+    fontSize: 18.0,
   );
 
   @override
