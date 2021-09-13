@@ -5,16 +5,16 @@ import 'package:distance_guard_flutter/pages/scanner_page.dart';
 import 'package:distance_guard_flutter/pages/team_page.dart';
 import 'package:flutter/material.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _HomePageState extends State<HomePage> {
   int _pageSelectedIndex = 0;
-  String _appBarTitle = "";
+  String _appBarTitle = "Dashboard";
 
   final _pageOptions = [
     DashboardPage(),
@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _pageSelectedIndex,
         showUnselectedLabels: true,
-        selectedItemColor: MyAppColor.primaryColor,
+        selectedItemColor: MyAppColor.primaryBlue,
         unselectedItemColor: MyAppColor.unselectedColor,
         onTap: _onItemTapped,
       ),
