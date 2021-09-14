@@ -1,4 +1,6 @@
 import 'package:distance_guard_flutter/blocs/blocs.dart';
+import 'package:distance_guard_flutter/blocs/country_list/country_list_bloc.dart';
+import 'package:distance_guard_flutter/blocs/country_list/country_list_state.dart';
 import 'package:distance_guard_flutter/constants/colors.dart';
 import 'package:distance_guard_flutter/service/covid_service.dart';
 import 'package:distance_guard_flutter/utils/app_utils.dart';
@@ -19,23 +21,29 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body:
-          BlocBuilder<WorldwideBloc, WorldwideState>(builder: (context, state) {
-        return Padding(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildSloganComponent(),
-              SizedBox(height: 20),
-              _buildLatestUpdateComponent(state),
-              SizedBox(height: 20),
-              _buildTopCountriesComponent(),
-              SizedBox(height: 20),
-              _buildSpreadTrendsComponent(),
-            ],
-          ),
+      body: BlocBuilder<WorldwideBloc, WorldwideState>(
+          builder: (context, worldwideState) {
+        return BlocBuilder<CountryListBloc, CountryListState>(
+          builder: (context, countryListState) {
+            return Padding(
+              padding: EdgeInsets.all(10.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _buildSloganComponent(),
+                    SizedBox(height: 20),
+                    _buildLatestUpdateComponent(worldwideState),
+                    SizedBox(height: 20),
+                    _buildTopCountriesComponent(countryListState),
+                    SizedBox(height: 20),
+                    _buildSpreadTrendsComponent(),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       }),
     );
@@ -174,33 +182,41 @@ class _DashboardPageState extends State<DashboardPage> {
     }
   }
 
-  Widget _buildTopCountriesComponent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Top Countries',
-          style: TextStyle(
-            fontSize: 18.0,
-            color: MyAppColor.primaryBlue,
-            fontWeight: FontWeight.w600,
+  Widget _buildTopCountriesComponent(CountryListState countryListState) {
+    if (countryListState is CountryListFetchedInitial) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (countryListState is CountryListFetchedSuccess) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Top Countries',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: MyAppColor.primaryBlue,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        SizedBox(height: 10),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              TopCountryItem(),
-              TopCountryItem(),
-              TopCountryItem(),
-              TopCountryItem(),
-              TopCountryItem(),
-            ],
-          ),
-        ),
-      ],
-    );
+          SizedBox(height: 10),
+          SizedBox(
+            height: 180.0,
+            child: ListView.builder(
+                itemCount: 5,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return TopCountryItem(
+                    countryListState.countryList[index],
+                    index,
+                  );
+                }),
+          )
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget _buildSpreadTrendsComponent() {
