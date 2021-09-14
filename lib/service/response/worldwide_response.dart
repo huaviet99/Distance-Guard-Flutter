@@ -14,7 +14,7 @@ class WorldwideResponse {
   final int critical;
 
   final int casesPerOneMillion;
-  final double deathsPerOneMillion;
+  final dynamic deathsPerOneMillion;
 
   final int tests;
   final double testsPerOneMillion;

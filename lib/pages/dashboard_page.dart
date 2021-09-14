@@ -1,7 +1,11 @@
+import 'package:distance_guard_flutter/blocs/blocs.dart';
 import 'package:distance_guard_flutter/constants/colors.dart';
 import 'package:distance_guard_flutter/service/covid_service.dart';
+import 'package:distance_guard_flutter/service/response/worldwide_response.dart';
+import 'package:distance_guard_flutter/utils/app_utils.dart';
 import 'package:distance_guard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -23,22 +27,25 @@ class _DashboardPageState extends State<DashboardPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildSloganComponent(),
-            SizedBox(height: 20),
-            _buildLatestUpdateComponent(),
-            SizedBox(height: 20),
-            _buildTopCountriesComponent(),
-            SizedBox(height: 20),
-            _buildSpreadTrendsComponent(),
-          ],
-        ),
-      ),
+      body:
+          BlocBuilder<WorldwideBloc, WorldwideState>(builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildSloganComponent(),
+              SizedBox(height: 20),
+              _buildLatestUpdateComponent(state),
+              SizedBox(height: 20),
+              _buildTopCountriesComponent(),
+              SizedBox(height: 20),
+              _buildSpreadTrendsComponent(),
+            ],
+          ),
+        );
+      }),
     );
   }
 
@@ -95,69 +102,84 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 
-  Widget _buildLatestUpdateComponent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Covid-19 Latest Update',
-          style: TextStyle(
-            fontSize: 18.0,
-            color: MyAppColor.primaryBlue,
-            fontWeight: FontWeight.w600,
+  Widget _buildLatestUpdateComponent(WorldwideState worldwideState) {
+    if (worldwideState is WorldwideFetchedInitial) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    } else if (worldwideState is WorldwideFetchedSuccess) {
+      final worldwideResponse = worldwideState.worldwideResponse;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Covid-19 Latest Update',
+            style: TextStyle(
+              fontSize: 18.0,
+              color: MyAppColor.primaryBlue,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        SizedBox(height: 2),
-        Text(
-          'Last update June 03, 2021 23:29:21',
-          style: TextStyle(
-            fontSize: 12.0,
-            color: MyAppColor.unselectedColor,
-            fontWeight: FontWeight.w600,
+          SizedBox(height: 2),
+          Text(
+            'Last update ${AppUtils.convertMillisecondsToDateFormat(worldwideResponse.updated)}',
+            style: TextStyle(
+              fontSize: 12.0,
+              color: MyAppColor.unselectedColor,
+              fontWeight: FontWeight.w600,
+            ),
           ),
-        ),
-        SizedBox(height: 10),
-        Row(
-          children: [
-            LatestUpdateCard(
-              title: 'Cases',
-              titleColor: MyAppColor.primaryBlue,
-              icon: SvgPicture.asset(
-                'images/ic_cases.svg',
+          SizedBox(height: 10),
+          Row(
+            children: [
+              LatestUpdateCard(
+                title: 'Cases',
+                titleColor: MyAppColor.primaryBlue,
+                icon: SvgPicture.asset(
+                  'images/ic_cases.svg',
+                ),
+                colorList: [
+                  Color(0xFFE6F2FF),
+                  Colors.white,
+                ],
+                cases: worldwideResponse.cases,
+                todayCases: worldwideResponse.todayCases,
               ),
-              colorList: [
-                Color(0xFFE6F2FF),
-                Colors.white,
-              ],
-            ),
-            SizedBox(width: 10),
-            LatestUpdateCard(
-              title: 'Recovered',
-              titleColor: MyAppColor.primaryGreen,
-              icon: SvgPicture.asset(
-                'images/ic_recovered.svg',
+              SizedBox(width: 10),
+              LatestUpdateCard(
+                title: 'Recovered',
+                titleColor: MyAppColor.primaryGreen,
+                icon: SvgPicture.asset(
+                  'images/ic_recovered.svg',
+                ),
+                colorList: [
+                  Color(0xFFE9FAEE),
+                  Colors.white,
+                ],
+                cases: worldwideResponse.recovered,
+                todayCases: worldwideResponse.todayRecovered,
               ),
-              colorList: [
-                Color(0xFFE9FAEE),
-                Colors.white,
-              ],
-            ),
-            SizedBox(width: 10),
-            LatestUpdateCard(
-              title: 'Deaths',
-              titleColor: MyAppColor.primaryRed,
-              icon: SvgPicture.asset(
-                'images/ic_deaths.svg',
+              SizedBox(width: 10),
+              LatestUpdateCard(
+                title: 'Deaths',
+                titleColor: MyAppColor.primaryRed,
+                icon: SvgPicture.asset(
+                  'images/ic_deaths.svg',
+                ),
+                colorList: [
+                  Color(0xFFFFEFF2),
+                  Colors.white,
+                ],
+                cases: worldwideResponse.deaths,
+                todayCases: worldwideResponse.todayDeaths,
               ),
-              colorList: [
-                Color(0xFFFFEFF2),
-                Colors.white,
-              ],
-            ),
-          ],
-        ),
-      ],
-    );
+            ],
+          ),
+        ],
+      );
+    } else {
+      return Container();
+    }
   }
 
   Widget _buildTopCountriesComponent() {

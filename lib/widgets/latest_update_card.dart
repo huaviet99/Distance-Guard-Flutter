@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:distance_guard_flutter/utils/app_utils.dart';
 
 class LatestUpdateCard extends StatelessWidget {
   final List<Color> colorList;
   final Widget icon;
   final String title;
   final Color? titleColor;
-
+  final int cases;
+  final int todayCases;
   LatestUpdateCard(
       {required this.colorList,
       required this.icon,
       required this.title,
-      this.titleColor});
+      this.titleColor,
+      this.cases = 0,
+      this.todayCases = 0});
 
   @override
   Widget build(BuildContext context) {
@@ -39,14 +43,14 @@ class LatestUpdateCard extends StatelessWidget {
               icon,
               SizedBox(height: 20),
               Text(
-                '172.643.763',
+                AppUtils.toNumberWithCommas(this.cases),
                 style: TextStyle(
                     color: this.titleColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0),
               ),
               Text(
-                '(+227.572)',
+                '(+${AppUtils.toNumberWithCommas(this.todayCases)})',
                 style: TextStyle(
                   color: this.titleColor,
                 ),

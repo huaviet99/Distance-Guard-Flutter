@@ -1,6 +1,9 @@
+import 'package:distance_guard_flutter/blocs/worldwide/worldwide_bloc.dart';
+import 'package:distance_guard_flutter/blocs/worldwide/worldwide_event.dart';
 import 'package:distance_guard_flutter/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:distance_guard_flutter/pages/pages.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,7 +27,9 @@ class MyApp extends StatelessWidget {
           titleTextStyle: _appBarTextStyle,
         ),
       ),
-      home: HomePage(),
+      home: BlocProvider(
+          create: (context) => WorldwideBloc()..add(WorldwideFetch()),
+          child: HomePage()),
     );
   }
 }
