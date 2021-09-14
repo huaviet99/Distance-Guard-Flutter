@@ -1,6 +1,6 @@
 import 'package:distance_guard_flutter/constants/colors.dart';
-import 'package:distance_guard_flutter/widgets/latest_update_card.dart';
-import 'package:distance_guard_flutter/widgets/top_country_item.dart';
+import 'package:distance_guard_flutter/service/covid_service.dart';
+import 'package:distance_guard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +12,13 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
+  CovidService covidService = CovidService();
+  @override
+  void initState() {
+    super.initState();
+    covidService.fetchCountryListSortedByTodayCases();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,6 @@
 import 'package:distance_guard_flutter/constants/colors.dart';
-import 'package:distance_guard_flutter/pages/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:distance_guard_flutter/pages/pages.dart';
 
 void main() => runApp(MyApp());
 

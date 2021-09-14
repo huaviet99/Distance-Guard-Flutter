@@ -1,8 +1,6 @@
 import 'package:distance_guard_flutter/constants/colors.dart';
-import 'package:distance_guard_flutter/pages/countries_page.dart';
-import 'package:distance_guard_flutter/pages/dashboard_page.dart';
-import 'package:distance_guard_flutter/pages/scanner_page.dart';
-import 'package:distance_guard_flutter/pages/team_page.dart';
+import 'package:distance_guard_flutter/pages/pages.dart';
+
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {

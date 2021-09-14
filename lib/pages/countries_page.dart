@@ -1,4 +1,4 @@
-import 'package:distance_guard_flutter/widgets/country_item.dart';
+import 'package:distance_guard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class CountriesPage extends StatefulWidget {

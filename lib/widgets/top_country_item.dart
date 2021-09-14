@@ -1,6 +1,5 @@
 import 'package:distance_guard_flutter/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class TopCountryItem extends StatelessWidget {
   @override
@@ -24,7 +23,11 @@ class TopCountryItem extends StatelessWidget {
           padding: EdgeInsets.all(12.0),
           child: Column(
             children: [
-              SvgPicture.asset('images/ic_deaths.svg'),
+              Image.network(
+                'https://disease.sh/assets/img/flags/af.png',
+                width: 40,
+                height: 25,
+              ),
               SizedBox(height: 5),
               Text(
                 'Iran',
