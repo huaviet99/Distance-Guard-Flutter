@@ -1,7 +1,11 @@
 import 'package:distance_guard_flutter/constants/colors.dart';
+import 'package:distance_guard_flutter/service/response/country_response.dart';
+import 'package:distance_guard_flutter/utils/app_utils.dart';
 import 'package:flutter/material.dart';
 
 class CountryItem extends StatelessWidget {
+  final CountryResponse countryResponse;
+  CountryItem(this.countryResponse);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,9 +27,9 @@ class CountryItem extends StatelessWidget {
           padding: EdgeInsets.all(10.0),
           child: Column(
             children: [
-              _buildHeaderItem(),
+              _buildHeaderItem(this.countryResponse),
               SizedBox(height: 10),
-              _buildContentItem(),
+              _buildContentItem(this.countryResponse),
             ],
           ),
         ),
@@ -33,13 +37,13 @@ class CountryItem extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaderItem() {
+  Widget _buildHeaderItem(CountryResponse countryResponse) {
     return Row(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.circular(12.0),
           child: Image.network(
-            'https://disease.sh/assets/img/flags/af.png',
+            countryResponse.countryInfo.flag,
             height: 40.0,
             width: 50.0,
           ),
@@ -49,14 +53,14 @@ class CountryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Afganistan',
+              countryResponse.country,
               style: TextStyle(
                   color: Color(0xFF1A0628),
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold),
             ),
             Text(
-              'Last update June 16, 2021 19:32:44',
+              'Last update ${AppUtils.convertMillisecondsToDateFormat(countryResponse.updated)}',
               style: TextStyle(
                 fontSize: 12.0,
                 color: Color(0xFF1A0628),
@@ -68,21 +72,24 @@ class CountryItem extends StatelessWidget {
     );
   }
 
-  Widget _buildContentItem() {
+  Widget _buildContentItem(CountryResponse countryResponse) {
     return Row(
       children: [
         _buildContentCard([
           Color(0xFFE6F2FF),
           Colors.white,
-        ], 'Cases', Color(0xFF007BFF), '94.919'),
+        ], 'Cases', Color(0xFF007BFF),
+            AppUtils.toNumberWithCommas(countryResponse.cases)),
         _buildContentCard([
           Color(0xFFE9FAEE),
           Colors.white,
-        ], 'Recovered', MyAppColor.primaryGreen, '61.938'),
+        ], 'Recovered', MyAppColor.primaryGreen,
+            AppUtils.toNumberWithCommas(countryResponse.recovered)),
         _buildContentCard([
           Color(0xFFFFEFF2),
           Colors.white,
-        ], 'Deaths', MyAppColor.primaryRed, '3.761'),
+        ], 'Deaths', MyAppColor.primaryRed,
+            AppUtils.toNumberWithCommas(countryResponse.deaths)),
       ],
     );
   }

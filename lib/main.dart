@@ -1,3 +1,5 @@
+import 'package:distance_guard_flutter/blocs/country_list/country_list_bloc.dart';
+import 'package:distance_guard_flutter/blocs/country_list/country_list_event.dart';
 import 'package:distance_guard_flutter/blocs/worldwide/worldwide_bloc.dart';
 import 'package:distance_guard_flutter/blocs/worldwide/worldwide_event.dart';
 import 'package:distance_guard_flutter/constants/colors.dart';
@@ -27,9 +29,17 @@ class MyApp extends StatelessWidget {
           titleTextStyle: _appBarTextStyle,
         ),
       ),
-      home: BlocProvider(
-          create: (context) => WorldwideBloc()..add(WorldwideFetch()),
-          child: HomePage()),
+      home: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => WorldwideBloc()..add(WorldwideFetch()),
+          ),
+          BlocProvider(
+            create: (context) => CountryListBloc()..add(CountryListFetch()),
+          )
+        ],
+        child: HomePage(),
+      ),
     );
   }
 }
