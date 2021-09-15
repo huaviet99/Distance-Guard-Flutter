@@ -1,8 +1,6 @@
 import 'package:distance_guard_flutter/blocs/blocs.dart';
-import 'package:distance_guard_flutter/blocs/country_list/country_list_bloc.dart';
-import 'package:distance_guard_flutter/blocs/country_list/country_list_state.dart';
 import 'package:distance_guard_flutter/constants/colors.dart';
-import 'package:distance_guard_flutter/service/covid_service.dart';
+import 'package:distance_guard_flutter/pages/information_page.dart';
 import 'package:distance_guard_flutter/utils/app_utils.dart';
 import 'package:distance_guard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +81,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           onPrimary: Color(0xFFFF4B63),
                           primary: Colors.white,
                         ),
-                        onPressed: () {},
+                        onPressed: _onSloganButtonClicked,
                         child: Text(
                           'Click here',
                           style: TextStyle(
@@ -100,6 +98,11 @@ class _DashboardPageState extends State<DashboardPage> {
         ],
       ),
     );
+  }
+
+  void _onSloganButtonClicked() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => InformationPage()));
   }
 
   Widget _buildLatestUpdateComponent(WorldwideState worldwideState) {

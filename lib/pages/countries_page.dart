@@ -1,5 +1,4 @@
-import 'package:distance_guard_flutter/blocs/country_list/country_list_bloc.dart';
-import 'package:distance_guard_flutter/blocs/country_list/country_list_state.dart';
+import 'package:distance_guard_flutter/blocs/blocs.dart';
 import 'package:distance_guard_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
