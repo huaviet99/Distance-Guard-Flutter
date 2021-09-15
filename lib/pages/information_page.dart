@@ -20,13 +20,11 @@ class _InformationPageState extends State<InformationPage> {
             return false;
           },
           child: SingleChildScrollView(
-            child: Container(
-              child: Column(
-                children: [
-                  _buildInformationHeader(),
-                  _buildInformationContent(),
-                ],
-              ),
+            child: Column(
+              children: [
+                _buildInformationHeader(),
+                _buildInformationContent(),
+              ],
             ),
           ),
         ),
@@ -92,94 +90,78 @@ class _InformationPageState extends State<InformationPage> {
   }
 
   Widget _buildInformationContent() {
-    return IntrinsicHeight(
-      child: Container(
-        margin: EdgeInsets.only(top: 10.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(40.0),
-            topRight: Radius.circular(40.0),
-          ),
-          color: Colors.white,
-        ),
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Symptoms',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-                color: Color(0xFFFF4B63),
-              ),
-            ),
-            SizedBox(height: 10.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SymptomCard('Headache', 'images/img_headache.png'),
-                SizedBox(width: 10.0),
-                SymptomCard('Cough', 'images/img_cough.png'),
-                SizedBox(width: 10.0),
-                SymptomCard('Fever', 'images/img_fever.png'),
-              ],
-            ),
-            SizedBox(height: 10.0),
-            Text(
-              'Preventions',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20.0,
-                color: Color(0xFFFF4B63),
-              ),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  PreventionCard(
-                    'Wear face mask',
-                    'Everyone should wear a cloth face cover when they have to go out in public, for example to the grocery store or to pick up other necessities.',
-                    'images/img_wear_face_mask.svg',
-                  ),
-                  SizedBox(height: 10.0),
-                  PreventionCard(
-                    'Use Nose Rag or Tissue',
-                    'If you are in a private setting and do not have on your cloth face covering, remember to always cover your mouth and nose with a tissue when you cough or sneeze or use the inside of your elbow.',
-                    'images/img_nose_rag.svg',
-                  ),
-                  SizedBox(height: 10.0),
-                  PreventionCard(
-                    'Avoid Contact',
-                    'Avoid close contact with people who are sick, even inside your home. If possible, maintain 6 feet between the person who is sick and other household members.',
-                    'images/img_shake_hand.svg',
-                  ),
-                  SizedBox(height: 10.0),
-                  PreventionCard(
-                    'Wash your hands',
-                    'Wash your hands often with soap and water for at least 20 seconds especially after you have been in a public place, or after blowing your nose, coughing, or sneezing.',
-                    'images/img_wash_hand.svg',
-                  ),
-                  SizedBox(height: 10.0),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildInformationBackground(Size screenSize) {
     return Container(
-      height: screenSize.height,
-      margin: EdgeInsets.only(top: screenSize.height * 0.25),
+      width: double.infinity,
+      margin: EdgeInsets.only(top: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(40.0),
           topRight: Radius.circular(40.0),
         ),
         color: Colors.white,
+      ),
+      padding: EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Symptoms',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Color(0xFFFF4B63),
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SymptomCard('Headache', 'images/img_headache.png'),
+              SizedBox(width: 10.0),
+              SymptomCard('Cough', 'images/img_cough.png'),
+              SizedBox(width: 10.0),
+              SymptomCard('Fever', 'images/img_fever.png'),
+            ],
+          ),
+          SizedBox(height: 10.0),
+          Text(
+            'Preventions',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20.0,
+              color: Color(0xFFFF4B63),
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Column(
+            children: [
+              PreventionCard(
+                'Wear face mask',
+                'Everyone should wear a cloth face cover when they have to go out in public, for example to the grocery store or to pick up other necessities.',
+                'images/img_wear_face_mask.svg',
+              ),
+              SizedBox(height: 10.0),
+              PreventionCard(
+                'Use Nose Rag or Tissue',
+                'If you are in a private setting and do not have on your cloth face covering, remember to always cover your mouth and nose with a tissue when you cough or sneeze or use the inside of your elbow.',
+                'images/img_nose_rag.svg',
+              ),
+              SizedBox(height: 10.0),
+              PreventionCard(
+                'Avoid Contact',
+                'Avoid close contact with people who are sick, even inside your home. If possible, maintain 6 feet between the person who is sick and other household members.',
+                'images/img_shake_hand.svg',
+              ),
+              SizedBox(height: 10.0),
+              PreventionCard(
+                'Wash your hands',
+                'Wash your hands often with soap and water for at least 20 seconds especially after you have been in a public place, or after blowing your nose, coughing, or sneezing.',
+                'images/img_wash_hand.svg',
+              ),
+              SizedBox(height: 10.0),
+            ],
+          ),
+        ],
       ),
     );
   }
